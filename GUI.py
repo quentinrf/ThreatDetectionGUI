@@ -1,6 +1,5 @@
 import os
 os.environ["KIVY_HOME"] = '/Users/quentinrf/Documents/2ndYear/APSC200/GUI'
-#/Users/quentinrf/Documents/'2ndYear'/APSC200/GUI
 
 import kivy
 kivy.require('1.10.1')
@@ -98,6 +97,7 @@ Builder.load_string("""
             on_press:
                 root.manager.transition.direction = 'right'
                 app.root.current = "menu"
+                
 <MathDepartment>:
     BoxLayout:
         Button:
@@ -135,7 +135,9 @@ class LoginScreen(Screen):
             self.manager.current = "menu"
 
 class MenuScreen(Screen):
-    pass
+    def resize(self):
+        Config.set('graphics', 'position', 'auto')
+        Config.write()
 class MainOffice(Screen):
     pass
 class Gymnasium(Screen):
