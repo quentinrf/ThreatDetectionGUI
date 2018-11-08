@@ -97,7 +97,7 @@ Builder.load_string("""
             on_press:
                 root.manager.transition.direction = 'right'
                 app.root.current = "menu"
-                
+
 <MathDepartment>:
     BoxLayout:
         Button:
@@ -160,7 +160,7 @@ sm.add_widget(Library(name = 'lib'))
 sm.add_widget(MathDepartment(name = 'math'))
 sm.add_widget(PhysicsDepartment(name = 'physics'))
 sm.add_widget(Auditorium(name = 'aud'))
-
+#Run dat app BITCH
 class Threatdetection(App):
     def build(self):
         return sm
