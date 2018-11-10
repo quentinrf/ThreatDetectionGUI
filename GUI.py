@@ -13,16 +13,15 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 from functools import partial
 from kivy.lang import Builder
-
+from kivy.core.window import Window
+from kivy.uix.video import Video
 #Configuration Files
 from kivy.config import Config
 Config.read('test.txt')
 Config.set('kivy', 'exit_on_escape', '1')
-Config.set('graphics', 'height', '65')
+Window.size = (1000,65)
 Config.set('graphics', 'position', 'custom')
-Config.set('graphics', 'width', '1000')
 Config.write()
-
 #Make Dem Screens!!
 Builder.load_string("""
 <LoginScreen>:
@@ -41,31 +40,37 @@ Builder.load_string("""
         Button:
             text: 'Main Office'
             on_press:
+                root.resize()
                 root.manager.transition.direction = 'left'
                 app.root.current = "office"
         Button:
             text: 'Gymnasium'
             on_press:
+                root.resize()
                 root.manager.transition.direction = 'left'
                 app.root.current = "gym"
         Button:
             text: 'Library'
             on_press:
+                root.resize()
                 root.manager.transition.direction = 'left'
                 app.root.current = "lib"
         Button:
             text: 'Math Department'
             on_press:
+                root.resize()
                 root.manager.transition.direction = 'left'
                 app.root.current = "math"
         Button:
             text: 'Physics Department'
             on_press:
+                root.resize()
                 root.manager.transition.direction = 'left'
                 app.root.current = "physics"
         Button:
             text: 'Auditorium'
             on_press:
+                root.resize()
                 root.manager.transition.direction = 'left'
                 app.root.current = "aud"
 
@@ -76,6 +81,7 @@ Builder.load_string("""
         Button:
             text: 'Back to Menu'
             on_press:
+                root.undo()
                 root.manager.transition.direction = 'right'
                 app.root.current = "menu"
 
@@ -86,6 +92,7 @@ Builder.load_string("""
         Button:
             text: 'Back to Menu'
             on_press:
+                root.undo()
                 root.manager.transition.direction = 'right'
                 app.root.current = "menu"
 <Library>:
@@ -95,6 +102,7 @@ Builder.load_string("""
         Button:
             text: 'Back to Menu'
             on_press:
+                root.undo()
                 root.manager.transition.direction = 'right'
                 app.root.current = "menu"
 
@@ -105,6 +113,7 @@ Builder.load_string("""
         Button:
             text: 'Back to Menu'
             on_press:
+                root.undo()
                 root.manager.transition.direction = 'right'
                 app.root.current = "menu"
 <PhysicsDepartment>:
@@ -114,6 +123,7 @@ Builder.load_string("""
         Button:
             text: 'Back to Menu'
             on_press:
+                root.undo()
                 root.manager.transition.direction = 'right'
                 app.root.current = "menu"
 <Auditorium>:
@@ -123,6 +133,7 @@ Builder.load_string("""
         Button:
             text: 'Back to Menu'
             on_press:
+                root.undo()
                 root.manager.transition.direction = 'right'
                 app.root.current = "menu"
 """)
@@ -136,20 +147,34 @@ class LoginScreen(Screen):
 
 class MenuScreen(Screen):
     def resize(self):
-        Config.set('graphics', 'position', 'auto')
-        Config.write()
+        Window.size = (900, 600)
 class MainOffice(Screen):
-    pass
+    def undo(self):
+        Window.size = (1000, 65)
+    def vid(self):
+        video = Video(source='party.mov', play=True)
 class Gymnasium(Screen):
-    pass
+    def undo(self):
+        Window.size = (1000, 65)
 class Library(Screen):
-    pass
+    def undo(self):
+        Window.size = (1000, 65)
 class MathDepartment(Screen):
-    pass
+    def undo(self):
+        Window.size = (1000, 65)
 class PhysicsDepartment(Screen):
-    pass
+    def undo(self):
+        Window.size = (1000, 65)
 class Auditorium(Screen):
-    pass
+    def undo(self):
+        Window.size = (1000, 65)
+
+
+##AnchorLayout:
+##        Video:
+##            source: 'party.mov'
+##            play: True
+
 #Setup ScreenManager
 sm = ScreenManager()
 sm.add_widget(LoginScreen(name = 'login'))
@@ -163,6 +188,7 @@ sm.add_widget(Auditorium(name = 'aud'))
 #Run dat app BITCH
 class Threatdetection(App):
     def build(self):
+        self.icon = "fire.png"
         return sm
 if __name__ == '__main__':
     Threatdetection().run()
